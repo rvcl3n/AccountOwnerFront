@@ -14,11 +14,14 @@ class OwnerList extends Component {
     componentDidMount = () => {
         let url = '/api/owner';
         this.props.onGetData(url, { ...this.props });
+
+        console.log("test front  "+ this.props.data);
     }
     render() {
         let owners = [];
         if (this.props.data && this.props.data.length > 0) {
             owners = this.props.data.map((owner) => {
+                console.log("test front  "+owners);
                 return (
                     <Owner key={owner.id} owner={owner} {...this.props} />
                 )
@@ -38,7 +41,7 @@ class OwnerList extends Component {
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Date of birth</th>
+                                    <th>Email</th>
                                     <th>Address</th>
                                     <th>Details</th>
                                     <th>Update</th>

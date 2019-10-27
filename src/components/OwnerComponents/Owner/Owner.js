@@ -20,7 +20,7 @@ const owner = (props) => {
         <Aux>
             <tr>
                 <td>{props.owner.name}</td>
-                <td><Moment format="DD/MM/YYYY">{props.owner.dateOfBirth}</Moment></td>
+                <td>{props.owner.email}</td>
                 <td>{props.owner.address}</td>
                 <td>
                     <Button onClick={() => redirectToOwnerDetails(props.owner.id, props.history)}>Details</Button>

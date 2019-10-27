@@ -11,6 +11,8 @@ import PageShell from '@material-ui/utils/';
 import CreateOwner from './Owner/CreateOwner/CreateOwner';
 import UpdateOwner from './Owner/UpdateOwner/UpdateOwner';
 import DeleteOwner from './Owner/DeleteOwner/DeleteOwner';
+import LoginOwner from './Owner/LoginOwner/LoginOwner';
+import PrivateRoute from '../components/PrivateRouteComp';
 
 const AsyncOwnerList = asyncComponent(() => {
   return import('./Owner/OwnerList/OwnerList');
@@ -19,7 +21,7 @@ const AsyncOwnerList = asyncComponent(() => {
 
     class App extends Component {
 
-      state = {
+      /*state = {
         contacts: []
       }
 
@@ -30,15 +32,16 @@ const AsyncOwnerList = asyncComponent(() => {
           this.setState({ contacts: data })
         })
         .catch(console.log)
-      }
+      }*/
 
       render () {
         return (
           <BrowserRouter>
             <Layout>
               <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/owner-list" component={AsyncOwnerList} />
+                <PrivateRoute path="/" exact component={Home} />
+                <Route path="/login"component={LoginOwner} />
+                <PrivateRoute path="/owner-list" component={AsyncOwnerList} />
                 <Route path="/ownerDetails/:id" component={OwnerDetails} />
                 <Route path="/createOwner" component={CreateOwner} />
                 <Route path="/updateOwner/:id" component={UpdateOwner} />

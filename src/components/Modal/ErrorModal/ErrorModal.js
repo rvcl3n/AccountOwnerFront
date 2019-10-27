@@ -6,7 +6,7 @@ import '../ModalStyles.css';
 const errorModal = (props) => {
     return (
         <Aux>
-            <Modal show={props.show} backdrop='static'>
+            <Modal show={props.show} backdrop='static' style={{opacity:1}}>
                 <Modal.Header>
                     {props.modalHeaderText}
                 </Modal.Header>

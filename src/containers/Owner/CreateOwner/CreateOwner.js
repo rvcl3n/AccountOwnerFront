@@ -34,6 +34,7 @@ class CreateOwner extends Component {
         const ownerToCreate = {
             name: this.state.ownerForm.name.value,
             address: this.state.ownerForm.address.value,
+            email: this.state.ownerForm.email.value,
             dateOfBirth: this.state.ownerForm.dateOfBirth.value
         }
      

@@ -1,8 +1,13 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios/axios';
 import * as errorHandlerActions from './errorHandlerActions';
+import { userService } from '../../services/userService';
+import { history } from '../../helpers/historyHepler';
+import { authHeader } from '../../helpers/authHeader';
 
 const getDataSuccess = (data) => {
+    console.log("getDataSuccess");
+    console.log(data);
     return {
         type: actionTypes.GET_DATA_SUCCESS,
         data: data
@@ -11,9 +16,10 @@ const getDataSuccess = (data) => {
  
 export const getData = (url, props) => {
     return (dispatch) => {
-        axios.get(url)
-        .then(response => {
-            dispatch(getDataSuccess(response.data));
+        axios.get(url,{ headers: authHeader()})
+        .then(handleResponse)
+        .then(data => {
+            dispatch(getDataSuccess(data));
         })
         .catch(error => {
             dispatch(errorHandlerActions.handleHTTPError(error, props));
@@ -30,7 +36,8 @@ const postDataSuccess = (response) => {
  
 export const postData = (url, obj, props) => {
     return (dispatch) => {
-        axios.post(url, obj)
+        axios.post(url, obj,{ headers: authHeader()})
+        .then(handleResponse)
         .then(response => {
             dispatch(postDataSuccess(response));
         })
@@ -49,7 +56,8 @@ const putDataSuccess = (response) => {
  
 export const putData = (url, obj, props) => {
     return (dispatch) => {
-        axios.put(url, obj)
+        axios.put(url, obj,{ headers: authHeader()})
+        .then(handleResponse)
         .then(response => {
             dispatch(putDataSuccess(response));
         })
@@ -68,7 +76,8 @@ const deleteDataSuccess = (response) => {
  
 export const deleteData = (url, props) => {
     return (dispatch) => {
-        axios.delete(url)
+        axios.delete(url,{ headers: authHeader()})
+        .then(handleResponse)
         .then(response => {
             dispatch(deleteDataSuccess(response));
         })
@@ -84,4 +93,43 @@ export const closeSuccessModal = (props, url) =>{
         props: props,
         url: url
     }
+}
+
+export function login(email, password) {
+    return dispatch => {
+        dispatch(request({ email }));
+        axios.post("http://localhost:5000/api/owner/authenticate", 
+           JSON.stringify({ email, password}),
+                {headers: { 'Content-Type': 'application/json' }}
+                ).then(handleResponse).then(owner => {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('owner', JSON.stringify(owner));
+                    console.log("owner "+owner);
+                    return owner;
+                }).then(
+                    owner => { 
+                        dispatch(success(owner));
+                        this.history.push('/');
+                    },
+                    error => {
+                        dispatch(failure(error.toString()));
+                        //dispatch(alertActions.error(error.toString()));
+                    }
+                );
+    };
+
+    function request(user) { return { type: actionTypes.LOGIN_REQUEST, user } }
+    function success(user) { return { type: actionTypes.LOGIN_SUCCESS, user } }
+    function failure(error) { return { type: actionTypes.LOGIN_FAILURE, error } }
+}
+
+export function logout() {
+    //userService.logout();
+    return { type: actionTypes.LOGOUT };
+}
+
+function handleResponse(response) {
+        const data = response.data;
+        return data;
+    
 }

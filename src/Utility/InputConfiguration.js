@@ -7,6 +7,11 @@ export const returnInputConfiguration = () => {
             validation: { required: true }, valid: false, touched: false,
             errorMessage: '', label: 'Name:'
         },
+        email: {
+            element: 'input', type: 'text', value: '', 
+            validation: { required: true }, valid: false, touched: false,
+            errorMessage: '', label: 'Email:'
+        },
         address: {
             element: 'input', type: 'text', value: '', 
             validation: { required: true, maxLength: 60 }, valid: false, touched: false,
