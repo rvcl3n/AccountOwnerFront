@@ -2,8 +2,8 @@ import { authHeader } from '../helpers/authHeader';
 
 export const userService = {
     login,
-    logout,/*
-    register,*/
+    logout/*,
+    register,
     getAll/*,
     getById,
     update,
@@ -85,7 +85,7 @@ function getAll() {
 }*/
 
 function handleResponse(response) {
-    console.log(response);
+    //console.log(response);
     return response.text().then(text => {       
         const data = text && JSON.parse(text);
 

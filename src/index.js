@@ -8,12 +8,14 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import repositoryReducer from './store/reducers/repositoryReducer';
 import errorHandlerReducer from './store/reducers/errorHandlerReducer';
 import authenticationReducer from './store/reducers/authenticationReducer';
+import registrationReducer from './store/reducers/registrationReducer';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
 const rootReducers = combineReducers({
     authentication: authenticationReducer,
+    registration: authenticationReducer,
     repository: repositoryReducer,
     errorHandler: errorHandlerReducer
 })

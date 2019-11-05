@@ -128,7 +128,17 @@ export function logout() {
     return { type: actionTypes.LOGOUT };
 }
 
+export function register(user) {
+    return dispatch => {
+        //dispatch(request({ email }));
+        axios.post("http://localhost:5000/api/owner/register", 
+           JSON.stringify(user),
+                {headers: { 'Content-Type': 'application/json' }}
+                ).then(handleResponse)};
+}
+
 function handleResponse(response) {
+        console.log("resp");
         const data = response.data;
         return data;
     
